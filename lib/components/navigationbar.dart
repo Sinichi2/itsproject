@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import '../screens/homepage.dart';
+import '../screens/Stocks.dart';
+import '../screens/account.dart';
+import '../screens/report.dart';
 
-// Missing NavItem class
+// NavItem class remains the same
 class NavItem {
   final IconData icon;
   final String label;
@@ -9,7 +12,7 @@ class NavItem {
   NavItem({required this.icon, required this.label});
 }
 
-// Missing SemiCircleClipper class
+// SemiCircleClipper class remains the same
 class SemiCircleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
@@ -31,7 +34,14 @@ class SemiCircleClipper extends CustomClipper<Path> {
 }
 
 class CustomNavBar extends StatefulWidget {
-  const CustomNavBar({Key? key}) : super(key: key);
+  final Function(int) onPageChanged;
+  final int currentIndex;
+
+  const CustomNavBar({
+    Key? key,
+    required this.onPageChanged,
+    required this.currentIndex,
+  }) : super(key: key);
 
   @override
   _CustomNavBarState createState() => _CustomNavBarState();
@@ -39,7 +49,6 @@ class CustomNavBar extends StatefulWidget {
 
 class _CustomNavBarState extends State<CustomNavBar>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
   bool _isMenuOpen = false;
   late AnimationController _animationController;
   late Animation<double> _animation;
@@ -91,21 +100,34 @@ class _CustomNavBarState extends State<CustomNavBar>
 
   void _onItemTapped(int index) {
     if (index == 2) {
+      // Center button - toggle menu
       _toggleMenu();
     } else {
-      setState(() {
-        _selectedIndex = index;
-        if (_isMenuOpen) {
+      // Navigate to the selected page
+      widget.onPageChanged(index);
+
+      // Close the menu if it's open
+      if (_isMenuOpen) {
+        setState(() {
           _isMenuOpen = false;
           _animationController.reverse();
-        }
-      });
+        });
+      }
     }
   }
 
-  // Missing _buildNavItem method
+  void _onMenuItemTapped(int index) {
+    // Handle menu item taps here
+    print('Menu item tapped: $index');
+    // Close the menu after handling the tap
+    setState(() {
+      _isMenuOpen = false;
+      _animationController.reverse();
+    });
+  }
+
   Widget _buildNavItem(IconData icon, String label, int index) {
-    bool isSelected = _selectedIndex == index;
+    bool isSelected = widget.currentIndex == index;
     return InkWell(
       onTap: () => _onItemTapped(index),
       child: Column(
@@ -114,7 +136,7 @@ class _CustomNavBarState extends State<CustomNavBar>
           Icon(
             icon,
             color: isSelected ? Color(0xFFEE0979) : Colors.grey,
-            size: 24,
+            size: 30,
           ),
           const SizedBox(height: 4),
           Text(
@@ -129,32 +151,33 @@ class _CustomNavBarState extends State<CustomNavBar>
     );
   }
 
-  // Missing _buildMenuIcon method
-  Widget _buildMenuIcon(IconData icon) {
-    return Container(
-      height: 40,
-      width: 40,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: Offset(0, 1),
-          ),
-        ],
+  Widget _buildMenuIcon(IconData icon, int index) {
+    return GestureDetector(
+      onTap: () => _onMenuItemTapped(index),
+      child: Container(
+        height: 40,
+        width: 40,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 3,
+              offset: Offset(0, 1),
+            ),
+          ],
+        ),
+        child: Icon(icon, color: Color(0xFF9B51E0), size: 25),
       ),
-      child: Icon(icon, color: Color(0xFF9B51E0), size: 20),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height:
-          140, // Increased height to accommodate the menu and floating button
+      height: 140,
       width: MediaQuery.of(context).size.width,
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -199,7 +222,7 @@ class _CustomNavBarState extends State<CustomNavBar>
                             Positioned(
                               left: 40.0 + i * 60.0,
                               bottom: 35.0,
-                              child: _buildMenuIcon(_menuItems[i].icon),
+                              child: _buildMenuIcon(_menuItems[i].icon, i),
                             ),
                         ],
                       ),
@@ -227,7 +250,7 @@ class _CustomNavBarState extends State<CustomNavBar>
                   ),
                 ],
               ),
-              height: 65,
+              height: 75,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -251,12 +274,12 @@ class _CustomNavBarState extends State<CustomNavBar>
 
           // Floating action button - positioned above the navbar
           Positioned(
-            bottom: 40, // Position it above the navbar
+            bottom: 40,
             child: GestureDetector(
               onTap: _toggleMenu,
               child: Container(
-                height: 50,
-                width: 50,
+                height: 60,
+                width: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   gradient: LinearGradient(
@@ -276,12 +299,94 @@ class _CustomNavBarState extends State<CustomNavBar>
                 child: AnimatedRotation(
                   turns: _isMenuOpen ? 0.125 : 0, // Rotate 45 degrees when open
                   duration: Duration(milliseconds: 300),
-                  child: Icon(Icons.add, color: Colors.white, size: 30),
+                  child: Icon(Icons.add, color: Colors.white, size: 36),
                 ),
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+// Main app with navigation
+class MainApp extends StatefulWidget {
+  const MainApp({Key? key}) : super(key: key);
+
+  @override
+  _MainAppState createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  int _currentIndex = 0;
+  final PageController _pageController = PageController();
+
+  // Define all pages
+  final List<Widget> _pages = [
+    Homepage(),
+    Stockspage(),
+    Reportspage(),
+    Accountpage(),
+  ];
+
+  // Map navigation bar indices to page indices
+  // The center button (index 2) is not mapped to any page
+  int _navIndexToPageIndex(int navIndex) {
+    if (navIndex < 2) {
+      return navIndex; // Home (0) and Stocks (1) remain the same
+    } else if (navIndex > 2) {
+      return navIndex - 1; // Report (3 -> 2) and Account (4 -> 3)
+    }
+    return 0; // Default to home page for safety
+  }
+
+  // Map page indices to navigation bar indices
+  int _pageIndexToNavIndex(int pageIndex) {
+    if (pageIndex < 2) {
+      return pageIndex; // Home (0) and Stocks (1) remain the same
+    } else {
+      return pageIndex + 1; // Report (2 -> 3) and Account (3 -> 4)
+    }
+  }
+
+  void _onNavItemTapped(int navIndex) {
+    // Set the current index for highlighting in the navigation bar
+    setState(() {
+      _currentIndex = navIndex;
+    });
+
+    // Don't navigate when the center button is pressed
+    if (navIndex != 2) {
+      // Convert nav index to page index and navigate
+      int pageIndex = _navIndexToPageIndex(navIndex);
+      _pageController.jumpToPage(pageIndex);
+    }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(), // Disable swiping
+        children: _pages,
+        onPageChanged: (pageIndex) {
+          // Update the navbar index when page changes programmatically
+          setState(() {
+            _currentIndex = _pageIndexToNavIndex(pageIndex);
+          });
+        },
+      ),
+      bottomNavigationBar: CustomNavBar(
+        currentIndex: _currentIndex,
+        onPageChanged: _onNavItemTapped,
       ),
     );
   }

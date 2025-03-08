@@ -287,7 +287,7 @@ class _HomepageScreenState extends State<Homepage> {
                     Container(
                       padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
-                        color: Color(0x282828).withOpacity(0.5),
+                        color: Color(0xFF282828).withOpacity(0.5),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Column(
@@ -432,9 +432,6 @@ class _HomepageScreenState extends State<Homepage> {
                 ),
               ),
             ),
-
-            // Custom Navigation Bar - replaces the old bottom navigation
-            Positioned(left: 0, right: 0, bottom: 0, child: CustomNavBar()),
           ],
         ),
       ),
