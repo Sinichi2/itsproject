@@ -79,10 +79,6 @@ This Flutter application is a financial learning assistant that uses the Gemini 
 
 Contributions to this project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-## License
-
-[Specify the license you want to use, e.g., MIT License]
-
 ## Contact
 
-[Your Name/Team Name] - [Your Email/Contact Information]
+Shiva Matthew Cruz- smvcruz@mymail.mapua.edu.ph
