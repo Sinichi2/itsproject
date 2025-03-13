@@ -26,32 +26,6 @@ class _HomepageScreenState extends State<Homepage> {
   // Calculate total wallet balance from savings and investments
   double get _walletBalance => _savingsAmount + _investmentsAmount;
 
-  
-
-  @override
-  void initState() {
-    super.initState(); 
-    items = [
-      NavModel(
-        page: const TabPage(tab: 1), 
-        navKey: homeNavKey, 
-      ),
-            NavModel(
-        page: const TabPage(tab: 2), 
-        navKey: stocksNavKey, 
-      ),
-                  NavModel(
-        page: const TabPage(tab: 3), 
-        navKey: reportNavKey, 
-      ),
-                  NavModel(
-        page: const TabPage(tab: 4), 
-        navKey: accountNavKey, 
-      ),
-
-    ]
-  }
-  
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
