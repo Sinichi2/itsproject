@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/navigationbar.dart';
+import '../components/navigationbar.dart'; // Import the navigation bar (MainApp)
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -28,17 +28,17 @@ class _HomepageScreenState extends State<Homepage> {
             Opacity(
               opacity: 0.15,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    colors: const [
+                    colors: [
                       Color(0xFFA59E9E), // 0%
                       Color(0xFFEA1A6E), // 50%
                       Color(0xFF9B51E0), // 80%
                       Color(0xFF9B51E0), // 100%
                     ],
-                    stops: const [0.0, 0.5, 0.8, 1.0],
+                    stops: [0.0, 0.5, 0.8, 1.0],
                   ),
                 ),
               ),
@@ -55,14 +55,27 @@ class _HomepageScreenState extends State<Homepage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
-                        'Dashboard (Home)',
+                        'Welcome Back',
                         style: TextStyle(
                           color: Colors.white.withOpacity(0.7),
                           fontSize: 16,
+                          fontFamily: 'Archivo',
                         ),
                       ),
                     ),
-
+                    //Shiva Matthew
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2.0),
+                      child: Text(
+                        'Shiva Matthew',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontFamily: 'Archivo',
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     // Wallet card
                     Container(
                       margin: const EdgeInsets.only(top: 16.0),
@@ -89,26 +102,6 @@ class _HomepageScreenState extends State<Homepage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    'Welcome Back,',
-                                    style: TextStyle(
-                                      color: Colors.white70,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Shiva Matthew!',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
                               Row(
                                 children: [
                                   Container(
@@ -156,7 +149,7 @@ class _HomepageScreenState extends State<Homepage> {
                             ],
                           ),
 
-                          const SizedBox(height: 24.0),
+                          const SizedBox(height: 16.0),
 
                           // Wallet balance
                           Column(
@@ -260,7 +253,7 @@ class _HomepageScreenState extends State<Homepage> {
 
                     // Progress Tracker
                     Padding(
-                      padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
+                      padding: const EdgeInsets.only(top: 16.0, bottom: 12.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -287,7 +280,7 @@ class _HomepageScreenState extends State<Homepage> {
                     Container(
                       padding: const EdgeInsets.all(16.0),
                       decoration: BoxDecoration(
-                        color: Color(0xFF282828).withOpacity(0.5),
+                        color: const Color(0xFF282828).withOpacity(0.5),
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Column(
@@ -378,7 +371,7 @@ class _HomepageScreenState extends State<Homepage> {
                             ],
                           ),
 
-                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 8.0),
 
                           // Action buttons
                           Row(
@@ -398,11 +391,10 @@ class _HomepageScreenState extends State<Homepage> {
 
                     // Recommendations
                     Padding(
-                      padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
+                      padding: const EdgeInsets.only(top: 16.0, bottom: 12.0),
                       child: Text(
                         'Recommendations',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
@@ -428,6 +420,7 @@ class _HomepageScreenState extends State<Homepage> {
                         ],
                       ),
                     ),
+                    const SizedBox(height: 60),
                   ],
                 ),
               ),

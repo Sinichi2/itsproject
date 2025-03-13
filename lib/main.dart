@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/opening_screen.dart';
+import 'components/navigationbar.dart';
 
 void main() {
   runApp(const MyApp());

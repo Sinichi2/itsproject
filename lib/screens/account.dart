@@ -1,4 +1,4 @@
-import 'package:/flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../components/navigationbar.dart';
 
 class Accountpage extends StatefulWidget {
@@ -11,7 +11,7 @@ class Accountpage extends StatefulWidget {
 class _AccountpageState extends State<Accountpage> {
   @override
   Widget build(BuildContext context) {
-    /*    return Scaffold(
+    return Scaffold(
       body: Container(
         color: Colors.black,
         child: Stack(
@@ -43,6 +43,5 @@ class _AccountpageState extends State<Accountpage> {
         ),
       ),
     );
-*/
   }
 }
