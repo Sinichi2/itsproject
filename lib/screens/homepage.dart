@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../components/navigationbar.dart'; // Import the navigation bar (MainApp)
+import '../components/navigationbar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -54,28 +55,74 @@ class _HomepageScreenState extends State<Homepage> {
                     // Dashboard header
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        'Welcome Back',
-                        style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 16,
-                          fontFamily: 'Archivo',
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Welcome Back',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.7),
+                                  fontSize: 16,
+                                  fontFamily: 'Archivo',
+                                ),
+                              ),
+                              //Shiva Matthew
+                              Padding(
+                                padding: const EdgeInsets.only(top: 2.0),
+                                child: Text(
+                                  'Shiva Matthew',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'Archivo',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          //Flow points
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 3.0,
+                              horizontal: 14.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Color(0xffffffff),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child: Row(
+                              children: [
+                                // Use SvgPicture.asset directly
+                                SvgPicture.asset(
+                                  'assets/images/Coin.svg',
+                                  width: 12.0, // Set the width directly
+                                  height: 12.0, // Set the height directly
+                                  fit: BoxFit.contain,
+                                  colorFilter: ColorFilter.mode(
+                                    Colors.black,
+                                    BlendMode.srcIn,
+                                  ), // Apply color
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  '300',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    //Shiva Matthew
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0),
-                      child: Text(
-                        'Shiva Matthew',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: 'Archivo',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+
                     // Wallet card
                     Container(
                       margin: const EdgeInsets.only(top: 16.0),
@@ -98,58 +145,7 @@ class _HomepageScreenState extends State<Homepage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Welcome section
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0,
-                                      vertical: 4.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: Colors.amber,
-                                      borderRadius: BorderRadius.circular(12.0),
-                                    ),
-                                    child: Row(
-                                      children: const [
-                                        Icon(
-                                          Icons.monetization_on,
-                                          size: 16.0,
-                                          color: Colors.black,
-                                        ),
-                                        SizedBox(width: 4.0),
-                                        Text(
-                                          '300',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(width: 8.0),
-                                  Container(
-                                    padding: const EdgeInsets.all(4.0),
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(color: Colors.white),
-                                    ),
-                                    child: const Icon(
-                                      Icons.add,
-                                      color: Colors.white,
-                                      size: 16.0,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-
-                          const SizedBox(height: 16.0),
+                          const SizedBox(height: 12.0),
 
                           // Wallet balance
                           Column(
